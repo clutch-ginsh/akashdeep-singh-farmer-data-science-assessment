@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- Project specific ---
+.DS_Store
+# Generated model / output artifacts (regenerate from the notebook)
+artifacts/
+*.pt
+*.pkl
+
