@@ -280,6 +280,18 @@ def main() -> None:
 
         # -------------------------------------------------------------- #
         banner("7. Grouped train/val/test split")
+        # The 1,503 rows are NOT 1,503 independent measurements. Each physical
+        # wind-tunnel setup -- a "configuration" of AoA, chord length, velocity and
+        # suction-side displacement -- was measured across a sweep of ~20 frequencies,
+        # so its rows trace one smooth SPL-vs-frequency curve. A naive random split
+        # tears every sweep apart, leaving test points sandwiched between train points
+        # on the SAME curve: the model interpolates a curve it has already largely
+        # memorised, and the reported error is optimistically biased. Grouping keeps
+        # each sweep intact, so the test set contains only setups never seen in training.
+        n_cfg_total = df.groupby(config.CONFIG_COLUMNS, sort=False).ngroups
+        print(f"{len(df)} rows are really {n_cfg_total} wind-tunnel configurations, each swept over")
+        print(f"~{len(df) / n_cfg_total:.0f} frequencies. The split moves WHOLE configurations, never single rows.\n")
+
         train_df, val_df, test_df = wtai.grouped_split(df)
         for name, part in [("train", train_df), ("val", val_df), ("test", test_df)]:
             n_cfg = part.groupby(config.CONFIG_COLUMNS, sort=False).ngroups
@@ -291,7 +303,12 @@ def main() -> None:
         assert cfgset(train_df).isdisjoint(cfgset(test_df))
         assert cfgset(train_df).isdisjoint(cfgset(val_df))
         assert cfgset(val_df).isdisjoint(cfgset(test_df))
-        print("no configuration is shared across folds (honest generalisation).")
+        print("\nVerified: no configuration appears in two folds. Every test row belongs to a setup")
+        print("the model never trained on, so test RMSE measures generalisation to NEW physical")
+        print("setups -- not interpolation between neighbouring frequency points of a known one.")
+        print("Honest caveat: individual feature LEVELS are still shared across folds (only their")
+        print("combinations are disjoint), and physically similar configurations can land on")
+        print("opposite sides. Grouping reduces leakage; it does not eliminate it.")
 
         # -------------------------------------------------------------- #
         banner("8. Scaling")
@@ -338,6 +355,8 @@ def main() -> None:
 
         # -------------------------------------------------------------- #
         banner("11. Model comparison")
+        # Every test_* column below is scored on configurations held out entirely
+        # (see section 7), so these are generalisation numbers, not interpolation.
         rows = []
         for name in trained:
             mv = metrics.regression_metrics(y_val, preds_val[name])
@@ -346,6 +365,7 @@ def main() -> None:
                          "test_MAE": mt["mae_db"], "test_R2": mt["r2"]})
         results = pd.DataFrame(rows).sort_values("val_RMSE").reset_index(drop=True)
         best_name = results.iloc[0]["model"]
+        print("scored on held-out configurations - no setup below was seen during training:")
         print(results.round(3).to_string(index=False))
 
         best_model_is_dl = best_name.startswith("mlp")
