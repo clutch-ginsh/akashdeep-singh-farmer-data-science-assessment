@@ -3,7 +3,7 @@
 Core logic for the Airbus FARM Data Science Challenge: modelling expected
 airfoil self-noise (SPL) and detecting non-physical instrument faults.
 
-Typical notebook usage::
+Typical usage::
 
     import wt_noise_lib as wtai
 

@@ -1,7 +1,7 @@
 """Central configuration: seeds, schema, physical bounds, and anomaly settings.
 
 Keeping these as named constants (rather than magic numbers scattered through
-the notebook) makes every choice auditable and reproducible -- a requirement of
+the analysis) makes every choice auditable and reproducible -- a requirement of
 the challenge brief.
 """
 
@@ -48,9 +48,9 @@ CONFIG_COLUMNS: list[str] = [
 ]
 
 # --------------------------------------------------------------------------- #
-# Layer 1 -- physical validity bounds (hard, physics/spec-derived limits).
+# Physical validity bounds (hard, physics/spec-derived limits).
 # Deliberately WIDER than the training data: these reject the physically
-# impossible, not the merely unseen (that is Layer 2's job).
+# impossible, not the merely unseen (that is the OOD detector's job).
 # Each entry is (min, max) inclusive; None means unbounded on that side.
 # --------------------------------------------------------------------------- #
 PHYSICAL_BOUNDS: dict[str, tuple[float | None, float | None]] = {

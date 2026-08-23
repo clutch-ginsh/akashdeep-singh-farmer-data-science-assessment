@@ -219,7 +219,8 @@ __marimo__/
 
 # --- Project specific ---
 .DS_Store
-# Generated model / output artifacts (regenerate from the notebook)
+# Generated figures + HTML reports / model artifacts (regenerate by running run.py)
+data/outputs/
 artifacts/
 *.pt
 *.pkl

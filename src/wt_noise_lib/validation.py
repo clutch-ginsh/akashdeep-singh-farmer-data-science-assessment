@@ -1,12 +1,12 @@
 """Input guardrails that sit *upstream* of the regressor.
 
-Layer 1 -- :func:`validate_physical`: rejects the physically impossible using
-hard, spec-derived bounds. A neural net should never be asked to relearn the
-laws of physics.
+:func:`validate_physical`: rejects the physically impossible using hard,
+spec-derived bounds. A neural net should never be asked to relearn the laws of
+physics.
 
-Layer 2 -- :class:`OODDetector`: flags inputs that are physically valid but lie
-outside the training distribution, so an extrapolated prediction can be marked
-low-confidence / abstain rather than trusted blindly.
+:class:`OODDetector`: flags inputs that are physically valid but lie outside the
+training distribution, so an extrapolated prediction can be marked low-confidence
+/ abstain rather than trusted blindly.
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ from . import config
 
 
 # --------------------------------------------------------------------------- #
-# Layer 1 -- physical validity
+# Physical validity
 # --------------------------------------------------------------------------- #
 def validate_physical(
     df: pd.DataFrame,
@@ -51,7 +51,7 @@ def validate_physical(
 
 
 # --------------------------------------------------------------------------- #
-# Layer 2 -- out-of-distribution / low-confidence detection
+# Out-of-distribution / low-confidence detection
 # --------------------------------------------------------------------------- #
 class OODDetector:
     """Flag inputs that fall outside the training feature distribution.

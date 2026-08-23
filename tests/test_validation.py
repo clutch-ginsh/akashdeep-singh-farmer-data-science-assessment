@@ -1,4 +1,4 @@
-"""Tests for Layer 1 (physical bounds) and Layer 2 (OOD) guardrails."""
+"""Tests for the physical-bounds and OOD guardrails."""
 
 import pandas as pd
 

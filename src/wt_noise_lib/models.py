@@ -2,7 +2,7 @@
 
 The classical baselines establish an honest floor and a strong tabular
 reference; the PyTorch models give deep learning a fair, well-built shot. The
-notebook compares them on held-out metrics to decide -- with evidence -- whether
+analysis compares them on held-out metrics to decide -- with evidence -- whether
 deep learning is actually the right tool for ~1,500 tabular rows.
 """
 
@@ -23,8 +23,8 @@ def get_baseline_models(seed: int = config.RANDOM_SEED) -> dict:
 
     ``HistGradientBoostingRegressor`` is a LightGBM-style gradient-boosted-tree
     model that ships with scikit-learn and needs no system libraries -- chosen
-    over XGBoost so the repo installs and runs from ``pip install .`` alone,
-    without a Homebrew ``libomp`` dependency (portability for the evaluator).
+    over XGBoost so the project runs under ``uv run`` with no Homebrew ``libomp``
+    dependency (portability for the evaluator).
     """
     from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegressor
     from sklearn.linear_model import LinearRegression
