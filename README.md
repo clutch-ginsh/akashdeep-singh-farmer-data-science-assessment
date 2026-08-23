@@ -1,7 +1,6 @@
 # Wind-Tunnel Acoustic Anomaly Detection
 
 **FARM Data Science Challenge — ML Engineer, Flight Physics**
-Author: Akashdeep Singh
 
 Model the expected acoustic behaviour of an airfoil in a wind tunnel and detect
 non-physical **instrument faults** in the sound-pressure-level (SPL) signal — the
@@ -16,7 +15,7 @@ Dataset: [NASA / UCI Airfoil Self-Noise](https://archive.ics.uci.edu/dataset/291
 
 ## Documentation
 
-1. **This README** — how to install, run, and reason about the project (the map).
+1. **This README** — how to install, run, and contribute to the project.
 2. **The notebook** `notebooks/airfoil_anomaly_detection.ipynb`:
    Data analysis → modelling → anomaly injection → detection → conclusions.
 3. **The `wt_noise_lib` package** (`src/`) — the tested, reusable core logic.
