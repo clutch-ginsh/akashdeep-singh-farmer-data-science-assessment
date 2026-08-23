@@ -1,9 +1,9 @@
-# Pinned dependencies for reproducibility (Python >= 3.10).
-# Preferred install is `pip install .` (or `pip install -e ".[dev]"`), which
-# reads pyproject.toml. This file is provided as an explicit, pinned fallback
-# matching a verified working environment.
+# Fixed, mutually-compatible environment — verified to run the notebook end-to-end.
+# Install into a FRESH virtual environment for a clean, OS-agnostic setup
+# (Linux / macOS / Windows). See README.md for the exact steps.
 
-# --- core / runtime ---
+# --- scientific stack (pinned together to avoid ABI mismatches, e.g. the
+#     matplotlib `_image` import error seen with unpinned installs) ---
 numpy==2.5.2
 pandas==3.0.5
 scipy==1.18.1
@@ -12,7 +12,10 @@ matplotlib==3.11.1
 seaborn==0.13.2
 torch==2.13.0
 
-# --- development (tests + notebook) ---
-pytest==9.1.1
+# --- notebook + kernel ---
 jupyter==1.1.1
+notebook==7.6.2
 ipykernel==7.3.0
+
+# --- tests (optional) ---
+pytest==9.1.1

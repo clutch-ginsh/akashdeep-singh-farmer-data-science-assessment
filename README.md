@@ -44,33 +44,28 @@ Dataset: [NASA / UCI Airfoil Self-Noise](https://archive.ics.uci.edu/dataset/291
 
 ## Setup
 
-Requires Python ≥ 3.10.
+Requires Python ≥ 3.10. Use a **fresh virtual environment** — `requirements.txt`
+pins one mutually-compatible set of versions that runs identically on Linux,
+macOS, and Windows (avoiding version/ABI mismatches such as the matplotlib
+`_image` import error).
 
 ```bash
-# create and activate an environment (example)
-python -m venv .venv && source .venv/bin/activate
+# 1. create & activate a clean environment
+python -m venv .venv
+source .venv/bin/activate           # Windows: .venv\Scripts\activate
 
-# users: install the library
-pip install .
-
-# developers: editable install + dev tools (pytest, jupyter)
-pip install -e ".[dev]"
-
-# fallback: pinned exact versions from a verified environment
+# 2. install the exact pinned dependencies
 pip install -r requirements.txt
-```
 
-Run the tests:
+# 3. install this project's package (no dependency re-resolution)
+pip install -e . --no-deps
 
-```bash
-pytest
-```
-
-Launch the notebook:
-
-```bash
+# 4. register the notebook kernel, then launch
+python -m ipykernel install --user --name wt-noise --display-name "Python 3 (wt-noise)"
 jupyter notebook notebooks/airfoil_anomaly_detection.ipynb
 ```
+
+Optional — run the unit tests: `pytest`
 
 ## Quickstart
 
