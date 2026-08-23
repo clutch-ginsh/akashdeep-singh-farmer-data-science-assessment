@@ -1,0 +1,23 @@
+# Conda alternative to the pip/venv setup (see README "Option B — conda").
+#
+# Conda provides an isolated Python interpreter + its own native libraries,
+# which avoids the broken-system-library problems that pip can hit on some
+# Linux boxes (e.g. the Pillow `_imaging` / matplotlib `_image` errors). The
+# Python packages themselves are installed from the SAME pinned requirements.txt
+# so the conda and venv paths use identical versions.
+#
+# Usage:
+#   conda env create -f environment.yml
+#   conda activate wt-noise
+#   pip install -e . --no-deps
+#   python -m ipykernel install --user --name wt-noise --display-name "Python 3 (wt-noise)"
+#   jupyter notebook notebooks/airfoil_anomaly_detection.ipynb
+
+name: wt-noise
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - pip
+  - pip:
+      - -r requirements.txt

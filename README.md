@@ -44,15 +44,22 @@ Dataset: [NASA / UCI Airfoil Self-Noise](https://archive.ics.uci.edu/dataset/291
 
 ## Setup
 
-Requires Python ≥ 3.10. Use a **fresh virtual environment** — `requirements.txt`
+Requires Python ≥ 3.10. Use a **fresh, isolated environment** — `requirements.txt`
 pins one mutually-compatible set of versions that runs identically on Linux,
 macOS, and Windows (avoiding version/ABI mismatches such as the matplotlib
-`_image` import error).
+`_image` / Pillow `_imaging` import errors).
+
+Pick **one** of the two options below.
+
+### Option A — venv + pip
 
 ```bash
 # 1. create & activate a clean environment
-python -m venv .venv
+#    (use python3 on macOS/Linux; on Windows use: python -m venv .venv)
+python3 -m venv .venv
 source .venv/bin/activate           # Windows: .venv\Scripts\activate
+
+# From here on, `python` and `pip` refer to the ones inside .venv.
 
 # 2. install the exact pinned dependencies
 pip install -r requirements.txt
@@ -65,7 +72,22 @@ python -m ipykernel install --user --name wt-noise --display-name "Python 3 (wt-
 jupyter notebook notebooks/airfoil_anomaly_detection.ipynb
 ```
 
-Optional — run the unit tests: `pytest`
+### Option B — conda
+
+
+```bash
+# 1. create & activate the environment (installs the pinned stack)
+conda env create -f environment.yml
+conda activate wt-noise
+
+# 2. install this project's package + register the kernel, then launch
+pip install -e . --no-deps
+python -m ipykernel install --user --name wt-noise --display-name "Python 3 (wt-noise)"
+jupyter notebook notebooks/airfoil_anomaly_detection.ipynb
+```
+
+**Important — run the notebook on the `wt-noise` kernel.** When the notebook opens,
+select the **`Python 3 (wt-noise)`** kernel (Jupyter: *Kernel → Change Kernel*).
 
 ## Quickstart
 
