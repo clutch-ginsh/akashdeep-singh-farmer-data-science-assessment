@@ -18,7 +18,7 @@ RANDOM_SEED: int = 42
 # Data schema
 # --------------------------------------------------------------------------- #
 # Default location of the raw UCI/NASA dataset within the repo.
-DATA_PATH: Path = Path(__file__).resolve().parents[2] / "data" / "input" / "airfoil_self_noise.dat"
+DATA_PATH: Path = Path(__file__).resolve().parents[2] / "data" / "inputs" / "airfoil_self_noise.dat"
 
 # Public source (documented for provenance).
 DATA_URL: str = (

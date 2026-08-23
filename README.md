@@ -31,7 +31,7 @@ Dataset: [NASA / UCI Airfoil Self-Noise](https://archive.ics.uci.edu/dataset/291
 ├── pyproject.toml                     # project metadata + dependencies (managed by uv)
 ├── README.md
 ├── run.py                             # end-to-end analysis script
-├── data/input/airfoil_self_noise.dat  # raw dataset
+├── data/inputs/airfoil_self_noise.dat  # raw dataset
 ├── data/outputs/run_<timestamp>/      # figures + interactive HTML report (one folder per run)
 ├── src/wt_noise_lib/                   # import name: wt_noise_lib (alias: wtai)
 │   ├── config.py       # seeds, schema, physical bounds, injection settings
